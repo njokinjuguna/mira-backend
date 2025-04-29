@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-multipart
+Pillow
+google-api-python-client
+google-auth
+transformers
+sentence-transformers
+tqdm
+scikit-learn
+torch
