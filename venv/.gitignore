@@ -1,0 +1,37 @@
+
+# Python
+*.py[cod]
+__pycache__/
+*.so
+
+# Environments
+.venv/
+venv/
+ENV/
+env.bak/
+env/
+
+# IDEs
+.idea/
+.vscode/
+
+# Logs and data
+*.log
+*.pkl
+*.db
+*.sqlite3
+skipped_images.log
+
+# Secrets
+.env
+service_account.json
+
+# Output
+generated_sketches/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+
+
