@@ -9,9 +9,7 @@ from mira.api.handlers.general_qa import answer_general_question
 from mira.api.handlers.image_search import search_images
 from mira.api.handlers.showroom_info import get_showroom_response
 from mira.utils.drive_utils import load_drive_service, download_image
-
 from mira.utils.image_preprocessor import SERVICE_ACCOUNT
-
 
 # ✅ Initialize the session store for managing sessions
 session_store = {}
@@ -28,6 +26,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ✅ Root health check
+@app.get("/")
+def read_root():
+    return {"status": "Mira backend is running"}
 
 @app.post("/search")
 async def search(request: Request):
@@ -71,8 +74,6 @@ async def showroom(request: Request):
     print(f"[SHOWROOM] Answer prepared.")
     return {"answer": answer}
 
-
-
 @app.post("/mira")
 async def mira_router(request: Request):
     data = await request.json()
@@ -83,14 +84,11 @@ async def mira_router(request: Request):
     if not query:
         return {"error": "Query cannot be empty."}
 
-    # ✅ Fetch or initialize session memory
     if session_id not in session_store:
         print(f"[MIRA] New session started: {session_id}")
         session_store[session_id] = {"context": {}}
 
     session_context = session_store[session_id]["context"]
-
-    # ✅ Detect intent
     intent = detect_intent(query)
     print(f"[MIRA] Detected intent: {intent}")
 
@@ -111,6 +109,7 @@ async def mira_router(request: Request):
             "type": "showroom",
             "answer": answer
         }
+
     elif intent == "follow_up_cost":
         print(f"[MIRA] Handling follow-up cost question.")
         return {
@@ -126,3 +125,8 @@ async def mira_router(request: Request):
             "type": "ask",
             "answer": answer
         }
+
+# ✅ Run the app in production (required by Railway)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
