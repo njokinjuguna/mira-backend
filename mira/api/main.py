@@ -23,11 +23,11 @@ app.mount("/generated_sketches", StaticFiles(directory="generated_sketches"), na
 # ✅ Allow frontend (Next.js) to call it
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://mira-frontend-f3ii.vercel.app"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.post("/search")
 async def search(request: Request):
