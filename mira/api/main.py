@@ -15,6 +15,10 @@ from mira.utils.image_preprocessor import SERVICE_ACCOUNT
 session_store = {}
 
 app = FastAPI()
+@app.get("/")
+def read_root():
+    return {"status": "Mira backend is running"}
+
 os.makedirs("generated_sketches", exist_ok=True)
 app.mount("/generated_sketches", StaticFiles(directory="generated_sketches"), name="sketches")
 
@@ -122,9 +126,7 @@ async def mira_router(request: Request):
             "answer": answer
         }
 
-@app.get("/")
-def read_root():
-    return {"status": "Mira backend is running"}
+
 
 # ✅ Run the app in production (required by Railway)
 if __name__ == "__main__":
