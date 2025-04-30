@@ -21,7 +21,7 @@ app.mount("/generated_sketches", StaticFiles(directory="generated_sketches"), na
 # ✅ Allow frontend (Next.js) to call it
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://mira-frontend-f3ii.vercel.app"],
+    allow_origins=["https://mira-frontend-f3ii.vercel.app", "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -129,4 +129,5 @@ async def mira_router(request: Request):
 # ✅ Run the app in production (required by Railway)
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("mira.api.main:app", host="0.0.0.0", port=8000, reload=False)
+    uvicorn.run("mira.api.main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)), reload=False)
+
