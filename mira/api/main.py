@@ -4,7 +4,6 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
-
 from mira.api.router import detect_intent
 from mira.api.handlers.general_qa import answer_general_question
 from mira.api.handlers.image_search import search_images
