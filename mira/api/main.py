@@ -27,10 +27,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ Root health check
-@app.get("/")
-def read_root():
-    return {"status": "Mira backend is running"}
 
 @app.post("/search")
 async def search(request: Request):
@@ -125,6 +121,10 @@ async def mira_router(request: Request):
             "type": "ask",
             "answer": answer
         }
+
+@app.get("/")
+def read_root():
+    return {"status": "Mira backend is running"}
 
 # ✅ Run the app in production (required by Railway)
 if __name__ == "__main__":
