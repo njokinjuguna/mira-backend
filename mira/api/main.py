@@ -1,5 +1,6 @@
 import io
 import os
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import StreamingResponse
@@ -130,6 +131,6 @@ async def mira_router(request: Request):
 
 # ✅ Run the app in production (required by Railway)
 if __name__ == "__main__":
-    import uvicorn
+    print("✅ Mira backend booting...")  # <-- Add this
     uvicorn.run("mira.api.main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)), reload=False)
 

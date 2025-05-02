@@ -1,11 +1,19 @@
+import os
 import io
-from googleapiclient.discovery import build
-from google.oauth2 import service_account
+import json
+import base64
 from PIL import Image
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
-def load_drive_service(service_account_file):
-    credentials = service_account.Credentials.from_service_account_file(
-        service_account_file,
+def load_drive_service():
+    encoded_creds = os.getenv("GOOGLE_CREDENTIALS_BASE64")  # ✅ This must match Railway
+    if not encoded_creds:
+        raise ValueError("Missing GOOGLE_CREDENTIALS_BASE64 in environment")
+
+    creds_dict = json.loads(base64.b64decode(encoded_creds).decode())
+    credentials = service_account.Credentials.from_service_account_info(
+        creds_dict,
         scopes=["https://www.googleapis.com/auth/drive"]
     )
     return build("drive", "v3", credentials=credentials)
