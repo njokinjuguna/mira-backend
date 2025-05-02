@@ -16,9 +16,15 @@ from mira.utils.image_preprocessor import SERVICE_ACCOUNT
 session_store = {}
 
 app = FastAPI()
+print("✅ Mira backend booting...")
+
 @app.get("/")
 def read_root():
     return {"status": "Mira backend is running"}
+
+@app.get("/healthcheck")
+def healthcheck():
+    return {"status": "ok"}
 
 os.makedirs("generated_sketches", exist_ok=True)
 app.mount("/generated_sketches", StaticFiles(directory="generated_sketches"), name="sketches")
