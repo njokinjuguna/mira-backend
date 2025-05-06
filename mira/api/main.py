@@ -55,7 +55,7 @@ async def search(request: Request):
 
 @app.get("/image/{image_id}")
 async def serve_drive_image(image_id: str):
-    drive_service = load_drive_service(SERVICE_ACCOUNT)
+    drive_service = load_drive_service()
     img = download_image(drive_service, image_id)
     buf = io.BytesIO()
     img.save(buf, format="JPEG")

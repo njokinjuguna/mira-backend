@@ -18,6 +18,7 @@ def load_drive_service():
     )
     return build("drive", "v3", credentials=credentials)
 
+
 def list_folders(drive_service, parent_folder_id):
     query = f"'{parent_folder_id}' in parents and mimeType = 'application/vnd.google-apps.folder'"
     results = drive_service.files().list(q=query, fields="files(id, name)").execute()
