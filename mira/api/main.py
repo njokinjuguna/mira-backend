@@ -32,7 +32,7 @@ app.mount("/generated_sketches", StaticFiles(directory="generated_sketches"), na
 # ✅ Allow frontend (Next.js) to call it
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://mira-frontend-f3ii-git-main-njokinjugunas-projects.vercel.app",
+    allow_origins=["https://mira-frontend-3tsc-1on3ecl0q-njokinjugunas-projects.vercel.app",
                    "https://miracundointeriordesign.com",  # ✅ optional if you use custom domain
                    "http://localhost:3000"
                    ],
