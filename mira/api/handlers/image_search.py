@@ -56,7 +56,7 @@ def search_images(query, top_k=5, threshold=0.25):
         {
             "best_match": match["name"],
             "caption": clean_caption(match["caption"], room_type),
-            "image_url": f"http://mira-backend-9l4x.onrender.com/image/{match['id']}",
+            "image_url": match["id"],
             "score": float(score)
         } for match, score in top if score >= threshold
     ]
